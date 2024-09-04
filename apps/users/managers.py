@@ -43,8 +43,8 @@ class CustomUserManager(BaseUserManager):
     
     
     def create_superuser(self, username, first_name, last_name, email, password, **extra_fields):
-        extra_fields.setdefault("if_staff", True)
-        extra_fields.setdefault("if_superuser", True)
+        extra_fields.setdefault("is_staff", True)
+        extra_fields.setdefault("is_superuser", True)
         extra_fields.setdefault("is_active", True)
         
         if extra_fields.get("is_staff") is not True:
@@ -62,6 +62,6 @@ class CustomUserManager(BaseUserManager):
         else:
             raise ValueError(_('Admin Account: An email address is required!'))
         
-        user = self.create_user(username, first_name, last_name, email, **extra_fields)
+        user = self.create_user(username, first_name, last_name, email, password, **extra_fields)
         user.save(using=self._db)
         return user
